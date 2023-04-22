@@ -9,7 +9,8 @@
 
 .border-box {
     color: black;
-    margin-inline: 10%;
+    width: 660px;
+    margin-inline: calc((100% - 660px - 64px)/2);
     margin-bottom: 16px;
     border: 1px solid #ddd;
     background-color: white;
