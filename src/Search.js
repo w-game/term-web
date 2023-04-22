@@ -50,7 +50,7 @@ export function Search() {
                     </div>
                 </div>
             </div>
-            <div className='border-box'>
+            <div id='dict' className='border-box'>
                 <div className='dict-catalog'>
                     <div className='dict-catalog-list'>
                         <div className='dict-catalog-item'>Home</div>

@@ -19,6 +19,20 @@
     padding-bottom: 16px;
 }
 
+@media (max-width: 659px) {
+    .border-box.newWidth {
+        width: 90%;
+        margin-inline: calc(5% - 32px);
+    }
+}
+
+@media (min-width: 660px) {
+    .border-box.newWidth {
+        width: 660px;
+        margin-inline: calc((100% - 660px - 64px)/2);
+    }
+}
+
 .border-box-title {
     height: 57px;
     padding-block: 16px;
@@ -49,18 +63,6 @@
     width: 100%;
     height: 3px;
 } */
-
-@media (max-width: 659px) {
-    .Search-content-dict.newWidth {
-        width: 90%;
-    }
-}
-
-@media (min-width: 660px) {
-    .Search-content-dict.newWidth {
-        width: 660px;
-    }
-}
 
 .dict-catalog {
     height: 57px;
