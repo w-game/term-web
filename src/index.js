@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import App from './view/App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
-import Search from './Search';
+import Search from './view/Search';
+import Calalogs from './view/Catalogs';
 // import { loader as searchLoader } from './Search'
 
 const router = createBrowserRouter([
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     path: "/search",
     // loader: searchLoader,
     element: <Search />
+  },
+  {
+    path: "/catalog",
+    element: <Calalogs />
   }
 ])
 

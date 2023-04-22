@@ -1,0 +1,23 @@
+.table-frame {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid var(--gray);
+    border-spacing: 0px;
+}
+
+.table-head {
+    padding: 8px;
+    font-size: 24px;
+    background-color: var(--theme);
+    color: white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.table-item {
+    padding: 8px;
+}
+
+.table-item-below {
+    background-color: #F3F3F3;
+}

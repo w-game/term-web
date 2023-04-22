@@ -1,0 +1,35 @@
+.router {
+    height: 57px;
+}
+
+.router::after {
+    width: 100%;
+    content: "";
+    border-bottom: 1px solid #F3F3F3;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.router-list {
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+.router-frame {
+    display: flex;
+}
+
+.router-link {
+    font-size: 18px;
+    margin-inline: 2px;
+}
+
+.router-spilt {
+    padding-inline: 8px;
+}
+
+.router-item {
+    font-size: 18px;
+    margin-inline: 2px;
+}

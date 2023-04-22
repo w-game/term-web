@@ -1,0 +1,12 @@
+.border-box {
+    color: black;
+    width: 660px;
+    margin-inline: calc((100% - 660px - 64px)/2);
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    background-color: white;
+    border-radius: 5px;
+    padding-inline: 32px;
+    padding-top: 0px;
+    padding-bottom: 16px;
+}

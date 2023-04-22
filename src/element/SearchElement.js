@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import search_png from './img/search.png';
+import search_png from '../img/search.png';
 import { useEffect, useState } from 'react';
 
 function SearchElement(params) {
@@ -65,7 +65,6 @@ function SearchElement(params) {
                 </button>
             </div>
             <div className='Search-match'>
-                {/* <div className={!matchSwitch ? 'Close' : 'Search-match-line'}></div> */}
                 {matchData.map((v, i) => (
                     <MatchItem key={i} matchName={v} />)
                 )}

@@ -1,5 +1,5 @@
-import './App.css';
-import SearchElement from './SearchElement.js'
+import '../css/App.css';
+import SearchElement from '../element/SearchElement.js'
 import { useState } from 'react';
 
 // import React, { Component } from 'react';

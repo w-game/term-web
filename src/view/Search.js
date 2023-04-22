@@ -1,7 +1,9 @@
 import { useLoaderData, useLocation } from 'react-router-dom'
-import './css/Search.css'
-import SearchElement from './SearchElement';
-import termData from './test/json/term.json'
+import '../css/Search.css'
+import termData from '../test/json/term.json'
+import TopELement from '../element/TopElement';
+import BorderBox from '../element/BorderBox';
+import BorderRouter from '../element/BorderRouter';
 
 // export function loader({ params }) {
 //     var term_name = params.term_name
@@ -41,27 +43,12 @@ export function Search() {
 
     const testTerm = termData.matchs[0]
     return (
-        <div className='search-view'>
+        <div className='view'>
             <div className='App-header search-header'>
-                <div className='App-top-element'>
-                    <div className='App-top-element-logo'>
-                        <div className='App-top-element-logo-title'>
-                            BaiZeTerms
-                        </div>
-                        <div className='App-search'>
-                            <SearchElement />
-                        </div>
-                    </div>
-                </div>
+                <TopELement />
             </div>
-            <div id='dict' className='border-box'>
-                <div className='dict-catalog'>
-                    <div className='dict-catalog-list'>
-                        <div className='dict-catalog-item'>Home</div>
-                        <div className='dict-catalog-item'>/ Computer Terms</div>
-                        <div className='dict-catalog-item'>/ Font-end</div>
-                    </div>
-                </div>
+            <BorderBox>
+                <BorderRouter r1='Tech Terms' r2='前端' />
                 <h1 className='Search-content-dict-title'>
                     {testTerm.name}
                 </h1>
@@ -106,7 +93,7 @@ export function Search() {
                     <div className='search-content-dict-info-content'>
                         <div className='search-content-dict-info-content-more'>
                             <div className='Search-content-dict-add-language'>
-                                <p>添加语言</p>
+                                <p>添加语言解释</p>
                             </div>
                         </div>
                         <div className='search-content-dict-info-content-author'>
@@ -115,9 +102,9 @@ export function Search() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </BorderBox>
 
-            <div id='dict' className='border-box'>
+            <BorderBox>
                 <div className='border-box-title'>
                     <div className='term-similar'>
                         <h2>近似术语</h2>
@@ -168,7 +155,7 @@ export function Search() {
                         React
                     </p>
                 </div>
-            </div>
+            </BorderBox>
         </div>
     )
 }
