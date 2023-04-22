@@ -22,9 +22,13 @@ function WindowResizeListener() {
     // } else {
     //     // 执行桌面布局操作
     // }
-
-    var e = document.getElementById("dict");
-    e.classList.add("newWidth");
+    var es = document.getElementsByClassName("border-box")
+    for (let index = 0; index < es.length; index++) {
+        const e = es[index];
+        e.classList.add("newWidth");
+    }
+    // var e = document.getElementById("dict");
+    // e.classList.add("newWidth");
 }
 
 export function Search() {
@@ -113,7 +117,7 @@ export function Search() {
                 </div>
             </div>
 
-            <div className='border-box'>
+            <div id='dict' className='border-box'>
                 <div className='border-box-title'>
                     <div className='term-similar'>
                         <h2>近似术语</h2>
