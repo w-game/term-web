@@ -1,0 +1,32 @@
+{
+    "matchs": [
+		{
+			"name": "前端",
+			"data": {
+				"normal":[
+					{
+                        "type": "中",
+                        "name": "前端",
+                        "des": "前端是Web应用程序中用户直接与之交互的部分，也就是用户界面。通常，它由三个主要技术组成：HTML（超文本标记语言）、CSS（层叠样式表）和JavaScript。HTML是一种用于创建网页结构的标记语言，它定义了网页中的各种元素，例如标题、段落、链接和图像等。CSS是用于控制网页外观和布局的样式表语言，它可以定义字体、颜色、大小、位置和其他方面的样式。JavaScript是一种编程语言，它可以用来创建交互式的网页元素和动态效果，例如下拉菜单、轮播图和弹出窗口等。前端开发人员使用这些技术来设计和开发用户友好的Web界面。他们必须考虑到网站的可用性、易用性、速度和响应性等方面，以确保用户有良好的体验。"
+                    },
+                    {
+                        "type": "英",
+                        "name": "Front-end",
+                        "des": "The front-end is the part of a web application that users directly interact with, which is the user interface. Typically, it consists of three main technologies: HTML (Hypertext Markup Language), CSS (Cascading Style Sheets), and JavaScript.HTML is a markup language used to create the structure of web pages, defining various elements such as headings, paragraphs, links, and images. CSS is a style sheet language used to control the appearance and layout of web pages, defining styles for fonts, colors, sizes, positions, and other aspects. JavaScript is a programming language used to create interactive web elements and dynamic effects, such as drop-down menus, carousels, and pop-up windows.Front-end developers use these technologies to design and develop user-friendly web interfaces. They must consider aspects such as website usability, ease of use, speed, and responsiveness to ensure users have a good experience."
+                    },
+                    {
+                        "type": "日",
+                        "name": null,
+                        "des": null
+			        }
+				]
+			}
+		},
+		{
+			"name": "前台调度",
+			"data": {
+
+            }
+		}
+	]
+}
