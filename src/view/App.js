@@ -1,6 +1,7 @@
 import '../css/App.css';
 import SearchElement from '../element/SearchElement.js'
 import { useState } from 'react';
+import TopELement from '../element/TopElement';
 
 // import React, { Component } from 'react';
 
@@ -14,20 +15,12 @@ function App() {
     // console.debug(window.scrollY == 0)
   }
 
+  console.debug(isOverSearch)
   window.addEventListener('scroll', handleScroll);
   return (
     <div className="App">
       <header className={isAtTop ? 'App-header' : 'App-header App-header-non-top'}>
-        <div className='App-top-element'>
-          <div className='App-top-element-logo'>
-            <div className='App-top-element-logo-title'>
-              BaiZeTerms
-            </div>
-            <div className={isOverSearch ? 'Close' : 'App-search'}>
-              <SearchElement />
-            </div>
-          </div>
-        </div>
+        <TopELement showSearchBox={!isOverSearch} />
       </header>
       <div className='App-content'>
         <div className='App-content-search-box'>

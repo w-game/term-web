@@ -3,13 +3,17 @@ import '../css/TopElement.css'
 import { NavLink } from 'react-router-dom'
 
 function TopELement(params) {
+    var showSearchBox = params.showSearchBox;
+    if (showSearchBox == null) {
+        showSearchBox = true
+    }
     return (
         <div className='top-element'>
             <div className='top-element-logo'>
-                <div className='top-element-logo-title'>
+                <NavLink className='top-element-logo-title' to='/'>
                     BaiZeTerms
-                </div>
-                <div className={'App-search'}>
+                </NavLink>
+                <div className={'App-search'} style={{ display: showSearchBox ? 'block' : 'none' }}>
                     <SearchElement />
                 </div>
 
