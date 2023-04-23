@@ -1,47 +1,56 @@
-import { useLoaderData, useLocation } from 'react-router-dom'
+import { NavLink, useLoaderData, useLocation } from 'react-router-dom'
 import '../css/Search.css'
-import termData from '../test/json/term.json'
 import TopELement from '../element/TopElement';
 import BorderBox from '../element/BorderBox';
 import BorderRouter from '../element/BorderRouter';
-
-// export function loader({ params }) {
-//     var term_name = params.term_name
-//     return { term_name }
-// }
-
-function getPageWidth() {
-    return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-}
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import appConfig from '../config/app'
 
 function WindowResizeListener() {
-    // var width = getPageWidth();
-    // // 在此处执行你希望在不同宽度下执行的操作
-    // if (width < 660) {
-    //     // 执行移动端布局操作
-    // } else if (width < 1024) {
-    //     // 执行平板布局操作
-    // } else {
-    //     // 执行桌面布局操作
-    // }
     var es = document.getElementsByClassName("border-box")
     for (let index = 0; index < es.length; index++) {
         const e = es[index];
         e.classList.add("newWidth");
     }
-    // var e = document.getElementById("dict");
-    // e.classList.add("newWidth");
 }
 
 export function Search() {
-    // const { term_name } = useLoaderData();
+    const [termData, setTermData] = useState()
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const term = queryParams.get('term');
 
-    window.addEventListener('resize', WindowResizeListener);
+    useEffect(() => {
+        window.addEventListener('resize', WindowResizeListener);
 
-    const testTerm = termData.matchs[0]
+        return () => {
+            window.removeEventListener('resize', WindowResizeListener);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (termData == null || termData.name !== term) {
+            axios.get(`${appConfig.serverAddress}/search/get/${term}`)
+                .then(response => {
+                    setTermData(response.data)
+                    console.log(response.data)
+                })
+        }
+    }, [term]);
+
+    function CalcLanguage(l) {
+        switch (l) {
+            case "en":
+                return "英"
+            case "jp":
+                return "日"
+
+            default:
+                return "中"
+        }
+    }
+
     return (
         <div className='view'>
             <div className='App-header search-header'>
@@ -50,24 +59,24 @@ export function Search() {
             <BorderBox>
                 <BorderRouter r1='Tech Terms' r2='前端' />
                 <h1 className='Search-content-dict-title'>
-                    {testTerm.name}
+                    {termData ? termData.name : '未找到相关术语'}
                 </h1>
                 <ul>
                     {
-                        testTerm.data.normal.map((val, i) => {
+                        termData?.languages.map((val, i) => {
                             if (val.name != null) {
                                 return (
                                     <li key={'term_' + i} className='Search-content-dict-item'>
                                         <div className='Search-content-dict-item-title'>
                                             <div className='Search-content-dict-item-language-type'>
-                                                {val.type}
+                                                {CalcLanguage(val.language)}
                                             </div>
                                             <p className='Search-content-dict-item-name'>
                                                 {val.name}
                                             </p>
                                         </div>
                                         <p className='Search-content-dict-item-des'>
-                                            {val.des}
+                                            {val.definition}
                                         </p>
                                     </li>
                                 )
@@ -76,7 +85,7 @@ export function Search() {
                                     <li key={'term_' + i} className='Search-content-dict-item'>
                                         <div className='Search-content-dict-item-title'>
                                             <div className='Search-content-dict-item-language-type'>
-                                                {val.type}
+                                                {val.language}
                                             </div>
                                             <p className='Search-content-dict-item-name'>
                                                 暂无资料
@@ -111,49 +120,9 @@ export function Search() {
                     </div>
                 </div>
                 <div className='term-similar-content'>
-                    <p className='term-similar-item'>
+                    <NavLink className='term-similar-item' to={`/search?term=${'后端'}`}>
                         后端
-                    </p>
-
-                    <p className='term-similar-item'>
-                        React
-                    </p>
-                    <p className='term-similar-item'>
-                        React
-                    </p>
-                    <p className='term-similar-item'>
-                        React
-                    </p>
-                    <p className='term-similar-item'>
-                        React
-                    </p>
-                    <p className='term-similar-item'>
-                        React
-                    </p>
-                    <p className='term-similar-item'>
-                        React
-                    </p>
-                    <p className='term-similar-item'>
-                        React
-                    </p>
-                    <p className='term-similar-item'>
-                        React
-                    </p>
-                    <p className='term-similar-item'>
-                        React
-                    </p>
-                    <p className='term-similar-item'>
-                        React
-                    </p>
-                    <p className='term-similar-item'>
-                        React
-                    </p>
-                    <p className='term-similar-item'>
-                        React
-                    </p>
-                    <p className='term-similar-item'>
-                        React
-                    </p>
+                    </NavLink>
                 </div>
             </BorderBox>
         </div>

@@ -4,7 +4,6 @@ import '../css/BorderRouter.css'
 function CalcRouter(params) {
     if (params.r1 != null && params.r1 != '') {
         if (params.r2 != null && params.r2 != '') {
-            console.debug(1111)
             return (
                 <div className='router-list'>
                     <NavLink className='router-link' to='/'>主页</NavLink>
