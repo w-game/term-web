@@ -36,17 +36,14 @@ function SearchElement(params) {
         const name = event.target.value
         setSearchName(name)
         setShowedName(name)
-        console.log("match name:" + name)
-        axios.get(`${appConfig.serverAddress}/search/match?name=${name}`)
-            .then(res => {
-                console.log(res.data)
-                // const names = []
-                // for (let index = 0; index < res.data.length; index++) {
-                //     const e = res.data[index];
-                //     names.push(e.name)
-                // }
-                setMatchData(res.data)
-            })
+        if (name == null || name == '') {
+            setMatchData([])
+        } else {
+            axios.get(`${appConfig.serverAddress}/search/match?name=${name}`)
+                .then(res => {
+                    setMatchData(res.data)
+                })
+        }
     }
 
     function HandleSearch(id, n) {
