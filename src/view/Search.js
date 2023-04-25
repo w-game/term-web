@@ -19,7 +19,8 @@ export function Search() {
     const [termData, setTermData] = useState()
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const term = queryParams.get('term');
+    const id = queryParams.get('id');
+    const term = queryParams.get('name');
 
     useEffect(() => {
         window.addEventListener('resize', WindowResizeListener);
@@ -30,14 +31,23 @@ export function Search() {
     }, []);
 
     useEffect(() => {
-        if (termData == null || termData.name !== term) {
-            axios.get(`${appConfig.serverAddress}/search/get/${term}`)
-                .then(response => {
-                    setTermData(response.data)
-                    console.log(response.data)
-                })
+        if (termData == null || termData.id !== id) {
+            // axios.get(`${appConfig.serverAddress}/search/get/${term}`)
+            //     .then(response => {
+            //         setTermData(response.data)
+            //         console.log(response.data)
+            //     })
+            if (id != -1) {
+                axios.get(`${appConfig.serverAddress}/search/term?id=${id}`)
+                    .then(response => {
+                        setTermData(response.data)
+                        console.log(response.data)
+                    })
+            } else {
+                setTermData(null)
+            }
         }
-    }, [term]);
+    }, [id]);
 
     function CalcLanguage(l) {
         switch (l) {
@@ -51,13 +61,21 @@ export function Search() {
         }
     }
 
+    function CalcTime(isoDate) {
+        const date = isoDate ? new Date(isoDate) : new Date();
+        const hour = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
+        const minute = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+        const formattedDate = `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()} ${hour}:${minute}`;
+        return formattedDate
+    }
+
     return (
         <div className='view'>
             <div className='App-header search-header'>
                 <TopELement />
             </div>
             <BorderBox>
-                <BorderRouter r1='Tech Terms' r2='前端' />
+                <BorderRouter r1='Tech Terms' r2={termData ? termData.name : term} r1_link='/terms?id=1&catalog=计算机' />
                 <h1 className='Search-content-dict-title'>
                     {termData ? termData.name : '未找到相关术语'}
                 </h1>
@@ -107,7 +125,7 @@ export function Search() {
                         </div>
                         <div className='search-content-dict-info-content-author'>
                             <p className='search-content-dict-info-content-author-text'>由官方编辑</p>
-                            <p className='search-content-dict-info-content-author-time'>2023.04.22</p>
+                            <p className='search-content-dict-info-content-author-time'>{CalcTime(termData ? termData.create_time : null)}</p>
                         </div>
                     </div>
                 </div>

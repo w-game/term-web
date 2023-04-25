@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import search_png from '../img/search.png';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+import appConfig from '../config/app'
 
 function SearchElement(params) {
     const [searchName, setSearchName] = useState('');
@@ -19,7 +21,6 @@ function SearchElement(params) {
             setMatchData([])
             setMatchSwitch(false)
         } else {
-            setMatchData(['4', '5', '6', '8'])
             setMatchSwitch(true)
         }
     }, [searchName])
@@ -32,23 +33,40 @@ function SearchElement(params) {
     }
 
     function OnSearchInputValueChange(event) {
-        setSearchName(event.target.value)
-        setShowedName(event.target.value)
+        const name = event.target.value
+        setSearchName(name)
+        setShowedName(name)
+        console.log("match name:" + name)
+        axios.get(`${appConfig.serverAddress}/search/match?name=${name}`)
+            .then(res => {
+                console.log(res.data)
+                // const names = []
+                // for (let index = 0; index < res.data.length; index++) {
+                //     const e = res.data[index];
+                //     names.push(e.name)
+                // }
+                setMatchData(res.data)
+            })
     }
 
-    function HandleSearch(n) {
+    function HandleSearch(id, n) {
         if (n == null || n == '') {
             return
         }
-        navigate(`/search?term=${n}`);
+        if (id == -1) {
+            if (matchData != null && matchData.length != 0) {
+                id = matchData[0].id
+            }
+        }
+        navigate(`/search?id=${id}&name=${n}`);
         setMatchSwitch(false)
         setMatchData([])
     }
 
     function MatchItem(params) {
-        const { matchName } = params
+        const { id, matchName } = params
         return (
-            <div className='Search-match-item' onClick={() => { HandleSearch(matchName) }}>
+            <div className='Search-match-item' onClick={() => { HandleSearch(id, matchName) }}>
                 <div className='Search-match-item-text'>
                     {matchName}
                 </div>
@@ -59,14 +77,23 @@ function SearchElement(params) {
     return (
         <div className='Search-box'>
             <div className='Search-input-frame'>
-                <input value={showedName} className='Search-input' onChange={OnSearchInputValueChange} />
-                <button className='Search-btn' onClick={() => { HandleSearch(searchName) }}>
+                <input
+                    value={showedName}
+                    className='Search-input'
+                    onChange={OnSearchInputValueChange}
+                    onKeyDown={e => {
+                        if (e.key === "Enter") {
+                            HandleSearch(-1, searchName)
+                        }
+                    }}
+                />
+                <button className='Search-btn' onClick={() => { HandleSearch(-1, searchName) }}>
                     <img className='Search-btn-img' src={search_png} />
                 </button>
             </div>
             <div className='Search-match'>
                 {matchData.map((v, i) => (
-                    <MatchItem key={i} matchName={v} />)
+                    <MatchItem key={i} id={v.id} matchName={v.name} />)
                 )}
                 <div className={!matchSwitch ? 'Close' : 'Search-match-item-more-btn'}>查看更多</div>
             </div>
