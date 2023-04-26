@@ -11,6 +11,7 @@
 }
 
 .router-list {
+    font-size: 18px;
     display: flex;
     height: 100%;
     align-items: center;
@@ -21,7 +22,6 @@
 }
 
 .router-link {
-    font-size: 18px;
     margin-inline: 2px;
 }
 
@@ -30,6 +30,11 @@
 }
 
 .router-item {
-    font-size: 18px;
     margin-inline: 2px;
+}
+
+@media screen and (max-width: 660px) {
+    .router-list {
+        font-size: 14px;
+    }
 }

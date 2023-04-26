@@ -11,7 +11,7 @@ function TopELement(params) {
         <div className='top-element'>
             <div className='top-element-logo'>
                 <NavLink className='top-element-logo-title' to='/'>
-                    BaiZeTerms
+                    BizerTerms
                 </NavLink>
                 <div className={'App-search'} style={{ display: showSearchBox ? 'block' : 'none' }}>
                     <SearchElement />

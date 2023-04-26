@@ -17,6 +17,12 @@
     color: white;
 }
 
+@media screen and (max-width: 660px) {
+    .top-element-logo-title {
+        font-size: 20px;
+    }
+}
+
 .extra-links {
     display: flex;
     height: 100%;

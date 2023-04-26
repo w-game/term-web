@@ -72,6 +72,12 @@
     font-family: "Dutch801 Rm BT", "AvertaStd-Semibold", "PingFang SC";
 }
 
+@media screen and (max-width: 660px) {
+    .Search-content-dict-title {
+        font-size: 32px;
+    }
+}
+
 .Search-content-dict-item {
     margin-bottom: 20px;
 }

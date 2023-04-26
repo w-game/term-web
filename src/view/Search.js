@@ -7,13 +7,13 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import appConfig from '../config/app'
 
-function WindowResizeListener() {
-    var es = document.getElementsByClassName("border-box")
-    for (let index = 0; index < es.length; index++) {
-        const e = es[index];
-        e.classList.add("newWidth");
-    }
-}
+// function WindowResizeListener() {
+//     var es = document.getElementsByClassName("border-box")
+//     for (let index = 0; index < es.length; index++) {
+//         const e = es[index];
+//         e.classList.add("newWidth");
+//     }
+// }
 
 export function Search() {
     const [termData, setTermData] = useState()
@@ -22,13 +22,13 @@ export function Search() {
     const id = queryParams.get('id');
     const term = queryParams.get('name');
 
-    useEffect(() => {
-        window.addEventListener('resize', WindowResizeListener);
+    // useEffect(() => {
+    //     window.addEventListener('resize', WindowResizeListener);
 
-        return () => {
-            window.removeEventListener('resize', WindowResizeListener);
-        };
-    }, []);
+    //     return () => {
+    //         window.removeEventListener('resize', WindowResizeListener);
+    //     };
+    // }, []);
 
     useEffect(() => {
         if (termData == null || termData.id !== id) {
