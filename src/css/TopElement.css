@@ -23,12 +23,19 @@
     }
 }
 
+.top-element-search {
+    width: 40%;
+    height: 28px;
+    margin-inline: 3%;
+}
+
 .extra-links {
     display: flex;
     height: 100%;
     margin-left: auto;
     font-weight: bolder;
     align-items: center;
+    font-size: 14px;
 }
 
 .extra-links-item {

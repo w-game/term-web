@@ -113,9 +113,9 @@ li {
 }
 
 .App-search {
-  width: 45%;
+  width: 40%;
   height: 34px;
-  margin-left: 3%;
+  margin-inline: auto;
 }
 
 .Search-box {
