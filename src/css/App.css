@@ -23,6 +23,10 @@ li {
   list-style: none;
 }
 
+button {
+  border: 0;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -202,7 +206,6 @@ li {
   margin: 0;
   vertical-align: top;
   outline: 0;
-  box-shadow: none;
   border: 0;
   color: #222;
   overflow: hidden;

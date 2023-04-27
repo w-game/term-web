@@ -1,0 +1,120 @@
+.admin-view {
+    width: 100%;
+    height: 100vh;
+    background-color: #F7FAFB;
+    flex-direction: row;
+    display: flex;
+}
+
+.status-bar {
+    width: 256px;
+    height: 96%;
+    background-color: white;
+    margin-inline: 32px;
+    margin-block: auto;
+    border-radius: 12px;
+    box-shadow: 4px 0 10px 0 rgba(0, 0, 0, .1);
+}
+
+.content {
+    width: calc(100% - 256px - 64px - 32px);
+    height: 96%;
+    margin-block: auto;
+    margin-right: 32px;
+}
+
+.admin-table {
+    width: 100%;
+    max-height: 100%;
+    border-spacing: 0;
+    /* border: 1px solid var(--gray); */
+    /* border-radius: 12px; */
+}
+
+.table-title {
+    background-color: var(--theme);
+    height: 44px;
+    color: white;
+    font-weight: bolder;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.table-subtitle {
+    height: 44px;
+    background-color: var(--theme);
+    color: white;
+    font-weight: bolder;
+}
+
+.table-content {
+    height: 32px;
+}
+
+th {
+    border: 1px solid var(--gray);
+}
+
+.table-op {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.op-enable {
+    width: 24px;
+    height: 24px;
+    background-color: yellowgreen;
+    margin-inline: auto;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.op-refuse {
+    width: 24px;
+    height: 24px;
+    background-color: red;
+    margin-inline: auto;
+    margin-left: 0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-term {
+    padding: 4px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.add-term-bg {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, .3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-term-frame {
+    width: 320px;
+    min-height: 120px;
+    max-height: 320px;
+    background-color: white;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
+    border-radius: 16px;
+    padding: 32px;
+}
+
+.add-term-item {
+    display: flex;
+    flex-direction: row;
+}
+
+.add-term-input {
+    width: 100%;
+    margin-left: 32px;
+}

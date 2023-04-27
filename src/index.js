@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import Search from './view/Search';
 import Calalogs from './view/Catalogs';
 import CatalogTerms from './view/CatalogTerms';
+import Admin from './view/Admin';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/terms",
     element: <CatalogTerms />
+  },
+  {
+    path: "/admin",
+    element: <Admin />
   }
 ])
 
