@@ -11,15 +11,17 @@
     height: 96%;
     background-color: white;
     margin-inline: 32px;
-    margin-block: auto;
     border-radius: 12px;
     box-shadow: 4px 0 10px 0 rgba(0, 0, 0, .1);
+    position: fixed;
+    top: 2%;
 }
 
 .content {
     width: calc(100% - 256px - 64px - 32px);
     height: 96%;
     margin-block: auto;
+    margin-left: auto;
     margin-right: 32px;
 }
 
@@ -48,7 +50,7 @@
 }
 
 .table-content {
-    height: 32px;
+    height: fit-content;
 }
 
 th {
@@ -56,8 +58,9 @@ th {
 }
 
 .table-op {
-    height: 32px;
-    display: flex;
+    /* height: 100vh; */
+    /* display: flex; */
+    min-width: 96px;
     align-items: center;
     justify-content: center;
 }
@@ -69,16 +72,17 @@ th {
     margin-inline: auto;
     border-radius: 4px;
     cursor: pointer;
+    display: inline-block;
 }
 
 .op-refuse {
     width: 24px;
     height: 24px;
     background-color: red;
-    margin-inline: auto;
-    margin-left: 0;
+    margin-left: 12px;
     border-radius: 4px;
     cursor: pointer;
+    display: inline-block;
 }
 
 .add-term {
@@ -88,7 +92,7 @@ th {
 }
 
 .add-term-bg {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100vh;
     left: 0;

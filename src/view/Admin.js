@@ -10,7 +10,7 @@ function Table({ data, OpButtons, AddTermBtn }) {
         <table className='admin-table'>
             <thead>
                 <tr className='table-title'>
-                    <th colSpan='5'>
+                    <th colSpan={data ? data.length * 2 + 1 : 0}>
                         术语
                     </th>
                     <th>
@@ -21,18 +21,19 @@ function Table({ data, OpButtons, AddTermBtn }) {
                     <th>
                         ID
                     </th>
-                    <th>
-                        名词
-                    </th>
-                    <th>
-                        解释
-                    </th>
-                    <th>
-                        名词
-                    </th>
-                    <th>
-                        解释
-                    </th>
+                    {
+                        data?.map((val, i) => (
+                            <>
+                                <th>
+                                    名词
+                                </th>
+                                <th>
+                                    解释
+                                </th>
+                            </>
+                        ))
+                    }
+
                     <th>
                         <AddTermBtn />
                     </th>
@@ -71,6 +72,7 @@ function Table({ data, OpButtons, AddTermBtn }) {
 function Admin(params) {
     const [terms, setTerms] = useState()
     const [tab, setTab] = useState()
+    const [showAddTermForm, setShowAddTermForm] = useState()
 
     axios.get(`${appConfig.serverAddress}/search/admin/terms`)
     if (terms == null) {
@@ -103,7 +105,7 @@ function Admin(params) {
     const AddTerm = () => {
         return (
             <button className='add-term' onClick={() => {
-
+                setShowAddTermForm(true)
             }}>
                 添加术语
             </button>
@@ -128,14 +130,19 @@ function Admin(params) {
                     }
                 }
                 <Table data={terms} OpButtons={OpButtons} AddTermBtn={AddTerm} />
-                <div className='add-term-bg'>
-                    <div className='add-term-frame'>
-                        <div className='add-term-item'>
-                            <p>NAME:</p>
-                            <input className='add-term-input' />
+                {
+                    showAddTermForm ? (
+                        <div className='add-term-bg'>
+                            <div className='add-term-frame'>
+                                <div className='add-term-item'>
+                                    <p>NAME:</p>
+                                    <input className='add-term-input' />
+                                </div>
+                                <button onClick={() => setShowAddTermForm(false)}>取消</button>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    ) : (<></>)
+                }
             </div>
         </div>
     )
