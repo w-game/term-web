@@ -10,7 +10,7 @@ function Table({ data, OpButtons, AddTermBtn }) {
         <table className='admin-table'>
             <thead>
                 <tr className='table-title'>
-                    <th colSpan={data ? data.length * 2 + 1 : 0}>
+                    <th colSpan={data ? data[0].contents.length * 2 + 1 : 0}>
                         术语
                     </th>
                     <th>
