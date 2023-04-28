@@ -22,7 +22,7 @@ function Table({ data, OpButtons, AddTermBtn }) {
                         ID
                     </th>
                     {
-                        data?.map((val, i) => (
+                        data ? data[0].contents.map((val, i) => (
                             <>
                                 <th>
                                     名词
@@ -31,7 +31,7 @@ function Table({ data, OpButtons, AddTermBtn }) {
                                     解释
                                 </th>
                             </>
-                        ))
+                        )) : 0
                     }
 
                     <th>
