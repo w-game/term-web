@@ -26,13 +26,66 @@
     color: white;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .table-item {
     padding: 8px;
     font-size: 18px;
+    border-bottom: 1px solid var(--gray);
+    display: flex;
+    justify-content: center;
+}
+
+.table-item-ai {
+    font-size: 14px;
+    margin-left: 16px;
+    border: 1px solid #F3F3F3;
+    padding-inline: 8px;
+    background-color: blueviolet;
+    border-radius: 6px;
+    color: white;
+    display: flex;
+    align-items: center;
 }
 
 .table-item-below {
     background-color: #F3F3F3;
+}
+
+.list-page {
+    display: flex;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    justify-content: center;
+    padding-block: 8px;
+}
+
+.list-page-item {
+    margin-left: 6px;
+    color: var(--linkcolor);
+    cursor: pointer;
+}
+
+.list-page-item-cur {
+    margin-left: 8px;
+}
+
+.list-term-search-box {
+    width: 320px;
+    height: 32px;
+    margin-left: 12px;
+    border-radius: 8px;
+    padding-inline: 12px;
+    background-color: white;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.list-term-search {
+    width: calc(100%-24px);
+    font-size: 14px;
 }

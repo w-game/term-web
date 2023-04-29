@@ -77,6 +77,7 @@ function SearchElement(params) {
                 <input
                     value={showedName}
                     className='Search-input'
+                    placeholder={params.placeholder}
                     onChange={OnSearchInputValueChange}
                     onKeyDown={e => {
                         if (e.key === "Enter") {

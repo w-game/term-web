@@ -3,48 +3,35 @@ import '../css/Search.css'
 import TopELement from '../element/TopElement';
 import BorderBox from '../element/BorderBox';
 import BorderRouter from '../element/BorderRouter';
-import axios from 'axios';
 import { useState, useEffect } from 'react';
-import appConfig from '../config/app'
+import { get } from '../func/request'
 
-// function WindowResizeListener() {
-//     var es = document.getElementsByClassName("border-box")
-//     for (let index = 0; index < es.length; index++) {
-//         const e = es[index];
-//         e.classList.add("newWidth");
-//     }
-// }
 
 export function Search() {
     const [termData, setTermData] = useState()
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const id = queryParams.get('id');
-    const term = queryParams.get('name');
-
-    // useEffect(() => {
-    //     window.addEventListener('resize', WindowResizeListener);
-
-    //     return () => {
-    //         window.removeEventListener('resize', WindowResizeListener);
-    //     };
-    // }, []);
+    const ai = queryParams.get('ai');
+    const termName = queryParams.get('name');
+    const fieldId = queryParams.get('field');
 
     useEffect(() => {
-        if (termData == null || termData.id !== id) {
-            // axios.get(`${appConfig.serverAddress}/search/get/${term}`)
-            //     .then(response => {
-            //         setTermData(response.data)
-            //         console.log(response.data)
-            //     })
-            if (id != -1) {
-                axios.get(`${appConfig.serverAddress}/search/term?id=${id}`)
-                    .then(response => {
-                        setTermData(response.data)
-                        console.log(response.data)
+        if (id == null && ai) {
+            get(`ai/term?name=${termName}&field=${fieldId}`, res => {
+                console.log(res.data)
+                console.log(res.data.infos[0])
+                setTermData(res.data)
+            })
+        } else {
+            if (termData == null || termData.id !== id) {
+                if (id != -1) {
+                    get(`term?id=${id}`, res => {
+                        setTermData(res.data)
                     })
-            } else {
-                setTermData(null)
+                } else {
+                    setTermData(null)
+                }
             }
         }
     }, [id]);
@@ -75,13 +62,13 @@ export function Search() {
                 <TopELement />
             </div>
             <BorderBox>
-                <BorderRouter r1='Tech Terms' r2={termData ? termData.name : term} r1_link='/terms?id=1&catalog=计算机' />
+                <BorderRouter r1={termData?.subfield} r2={termData?.infos[0].name} r1_link={`/terms?id=1&field=${termData?.subfield}`} />
                 <h1 className='Search-content-dict-title'>
                     {termData ? termData.name : '未找到相关术语'}
                 </h1>
                 <ul>
                     {
-                        termData?.languages.map((val, i) => {
+                        termData?.infos.map((val, i) => {
                             if (val.name != null) {
                                 return (
                                     <li key={'term_' + i} className='Search-content-dict-item'>
@@ -93,9 +80,18 @@ export function Search() {
                                                 {val.name}
                                             </p>
                                         </div>
-                                        <p className='Search-content-dict-item-des'>
+                                        <div className='Search-content-dict-item-des'>
+                                            <p className='des-label'>定义</p>
                                             {val.definition}
-                                        </p>
+                                        </div>
+                                        <div className='Search-content-dict-item-des'>
+                                            <p className='des-label'>历史</p>
+                                            {val.history}
+                                        </div>
+                                        <div className='Search-content-dict-item-des'>
+                                            <p className='des-label'>应用</p>
+                                            {val.application}
+                                        </div>
                                     </li>
                                 )
                             } else {
@@ -124,12 +120,12 @@ export function Search() {
                             </div>
                         </div>
                         <div className='search-content-dict-info-content-author'>
-                            <p className='search-content-dict-info-content-author-text'>由官方编辑</p>
+                            <p className='search-content-dict-info-content-author-text'>由<span style={{ color: "#1871D8", cursor: 'pointer', display: 'flex', alignItems: 'center' }}>{termData?.author.nickname}</span>编辑</p>
                             <p className='search-content-dict-info-content-author-time'>{CalcTime(termData ? termData.create_time : null)}</p>
                         </div>
                     </div>
                 </div>
-            </BorderBox>
+            </BorderBox >
 
             <BorderBox>
                 <div className='border-box-title'>
@@ -143,7 +139,7 @@ export function Search() {
                     </NavLink>
                 </div>
             </BorderBox>
-        </div>
+        </div >
     )
 }
 

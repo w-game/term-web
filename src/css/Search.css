@@ -108,10 +108,28 @@
     font-weight: bold;
 }
 
+.des-label {
+    flex-shrink: 0;
+    height: 26px;
+    margin-bottom: 8px;
+    background-color: white;
+    position: absolute;
+    text-indent: 0;
+    padding-inline: 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
 .Search-content-dict-item-des {
     font-size: 16px;
     color: #0a0a0a;
     line-height: 1.6;
+    background-color: antiquewhite;
+    padding: 8px;
+    border-radius: 4px;
+    text-indent: 3.5em;
+    margin-block: 16px;
+    position: relative;
 }
 
 .Search-content-dict-add-language {
@@ -166,6 +184,8 @@
 
 .search-content-dict-info-content-author-text {
     font-weight: bold;
+    display: flex;
+    justify-content: right;
 }
 
 .search-content-dict-info-content-author-time {}

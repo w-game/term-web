@@ -1,6 +1,25 @@
 .catalog-list {
+    margin-top: 16px;
+}
+
+.field-title {
     display: flex;
     margin-top: 16px;
+    margin-bottom: 16px;
+    align-items: center;
+}
+
+.field-logo {
+    width: 16px;
+    height: 16px;
+    background-color: green;
+    margin-right: 12px;
+    border-radius: 4px;
+}
+
+.field-sublist {
+    display: flex;
+    height: fit-content;
 }
 
 .catalog-item {
@@ -15,12 +34,4 @@
     /* color: var(--linkcolor); */
     /* font-weight: bold; */
     /* cursor: pointer; */
-}
-
-.catalog-item-row-last {
-    margin-right: 0px;
-}
-
-.catalog-item-column-last {
-    margin-bottom: 0px;
 }

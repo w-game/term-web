@@ -53,9 +53,9 @@
     height: fit-content;
 }
 
-th {
+/* th {
     border: 1px solid var(--gray);
-}
+} */
 
 .table-op {
     /* height: 100vh; */

@@ -2,7 +2,6 @@ import { NavLink } from 'react-router-dom';
 import '../css/BorderRouter.css'
 
 function CalcRouter(params) {
-    console.log(params.r1, params.r2)
     if (params.r1 != null && params.r1 != '') {
         if (params.r2 != null && params.r2 != '') {
             return (

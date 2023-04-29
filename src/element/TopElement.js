@@ -14,7 +14,7 @@ function TopELement(params) {
                     BizerTerms
                 </NavLink>
                 <div className='top-element-search' style={{ display: showSearchBox ? 'block' : 'none' }}>
-                    <SearchElement />
+                    <SearchElement placeholder='搜索专业术语...' />
                 </div>
 
                 <ul className='extra-links'>

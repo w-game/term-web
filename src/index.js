@@ -5,8 +5,8 @@ import App from './view/App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import Search from './view/Search';
-import Calalogs from './view/Catalogs';
-import CatalogTerms from './view/CatalogTerms';
+import Field from './view/Field';
+import FieldTerms from './view/FieldTerms';
 import Admin from './view/Admin';
 
 const router = createBrowserRouter([
@@ -20,11 +20,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/catalog",
-    element: <Calalogs />
+    element: <Field />
   },
   {
     path: "/terms",
-    element: <CatalogTerms />
+    element: <FieldTerms />
   },
   {
     path: "/admin",
