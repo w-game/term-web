@@ -1,8 +1,8 @@
 import axios from "axios"
 import appConfig from '../config/app'
 
-const url = appConfig.serverAddress
-// const url = "http://localhost:8000/"
+var url = appConfig.serverAddress
+// url = "http://localhost:8000/"
 
 const get = (router, callback, error) => {
     axios.get(`${url}api/${router}`)

@@ -69,12 +69,7 @@ function CatalogTerms(params) {
                                                 setFieldSearch(null)
                                             } else {
                                                 throttledGet(`subfield/term/search?id=${field.id}&name=${name}`, res => {
-                                                    var data = res.data
-                                                    if (data.cur.length > 0) {
-                                                        setFieldSearch(data.cur)
-                                                    } else {
-                                                        setFieldSearch(data.other)
-                                                    }
+                                                    setFieldSearch(res.data)
                                                 })
                                             }
                                         }}
