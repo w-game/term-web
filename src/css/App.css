@@ -25,13 +25,19 @@ li {
 
 button {
   border: 0;
+  cursor: pointer;
+}
+
+textarea {
+  resize: none;
+  outline: 0;
+  border: 0;
 }
 
 input {
   width: calc(100% - 24px);
   height: 100%;
   box-shadow: none;
-  outline: 0;
   font-size: 16px;
   margin: 0;
   vertical-align: top;
@@ -62,16 +68,16 @@ input {
 .view {
   width: 100%;
   background-color: #f6f6f6;
-  padding-block: 64px;
-  min-height: calc(100vh - 128px);
+  padding-block: 54px;
+  min-height: calc(100vh - 108px);
 }
 
 .App-header {
   position: fixed;
   top: 0;
-  width: 88%;
+  width: 97%;
   height: 54px;
-  padding-inline: 6%;
+  padding-inline: 1.5%;
   background-color: #646bd9;
   z-index: 2;
 }

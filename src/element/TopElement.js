@@ -18,8 +18,11 @@ function TopELement(params) {
                 </div>
 
                 <ul className='extra-links'>
-                    <NavLink className='extra-links-item' to='/catalog'>
+                    <NavLink className='extra-links-item' to='/field'>
                         术语库
+                    </NavLink>
+                    <NavLink className='extra-links-item' to='/extract'>
+                        术语提取
                     </NavLink>
                 </ul>
             </div>

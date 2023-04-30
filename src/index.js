@@ -8,6 +8,7 @@ import Search from './view/Search';
 import Field from './view/Field';
 import FieldTerms from './view/FieldTerms';
 import Admin from './view/Admin';
+import TermExtract from './view/TermExtract';
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
     element: <Search />
   },
   {
-    path: "/catalog",
+    path: "/field",
     element: <Field />
   },
   {
@@ -29,6 +30,14 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Admin />
+  },
+  {
+    path: "/extract",
+    element: <TermExtract />
+  },
+  {
+    path: "/extract/add",
+    element: <TermExtract />
   }
 ])
 

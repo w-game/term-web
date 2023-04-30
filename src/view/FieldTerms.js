@@ -45,7 +45,7 @@ function CatalogTerms(params) {
                 <TopELement />
             </div>
             <BorderBox>
-                <BorderRouter r1='领域 / 学科 / 行业' r2={fieldName} r1_link='/catalog' />
+                <BorderRouter r1='领域 / 学科 / 行业' r2={fieldName} r1_link='/field' />
                 <h1 className='catalog-title'>
                     {field?.name}
                 </h1>
