@@ -1,7 +1,6 @@
 import TopELement from "../element/TopElement"
 import '../css/TermExtract.css'
-import { NavLink, useLocation } from "react-router-dom"
-import BorderBox from '../element/BorderBox'
+import { NavLink, useLocation, useNavigate } from "react-router-dom"
 import { useCallback, useEffect, useState } from "react"
 import add from '../img/add.png'
 import { get, post } from '../func/request'
@@ -10,6 +9,8 @@ function TermExtract(params) {
     const [middleStatus, setMiddleStatus] = useState("ADD")
     const [articalData, setArticalData] = useState()
     const [articleNames, setArticleNames] = useState()
+    const [isSearching, setIsSearching] = useState(false)
+    const navigate = useNavigate();
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
@@ -133,12 +134,12 @@ function TermExtract(params) {
                 "title": articalTitle,
                 "content": articalContent
             }, res => {
-                var data = JSON.parse(res.data)
-                data.title = articalTitle
-                data.content = articalContent
-                setArticalData(data)
-                setMiddleStatus("SHOW")
+                // setArticalData(data)
+                // setMiddleStatus("SHOW")
+                navigate(`/extract?id=${res.data.id}`);
+                setIsSearching(false)
             })
+            setIsSearching(true)
         }
 
         return (
@@ -264,6 +265,10 @@ function TermExtract(params) {
                     </div>
                 </div>
             </div>
+
+            {
+                isSearching ? (<div className="search-mask">正在识别中，请耐心等待...</div>) : (<></>)
+            }
         </div >
     )
 }

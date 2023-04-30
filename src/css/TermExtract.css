@@ -19,7 +19,11 @@
 }
 
 .artical-list-item {
-    margin-bottom: 12px;
+    margin-bottom: 16px;
+}
+
+.artical-list-item:hover {
+    text-decoration: underline;
 }
 
 .article-add {
@@ -186,4 +190,17 @@
 .item-link-word {
     width: 100%;
     padding-block: 4px;
+}
+
+.search-mask {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, .3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
