@@ -8,7 +8,7 @@ const csrftoken = Cookies.get('csrftoken')
 axios.defaults.headers.common['X-CSRFToken'] = csrftoken;
 
 var url = appConfig.serverAddress
-url = "http://localhost:8000/"
+// url = "http://localhost:8000/"
 
 const get = (router, callback, error) => {
     axios.get(`${url}api/${router}`)
