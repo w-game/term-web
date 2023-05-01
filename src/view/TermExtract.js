@@ -1,7 +1,7 @@
 import TopELement from "../element/TopElement"
 import '../css/TermExtract.css'
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
-import { useCallback, useEffect, useState } from "react"
+import { Fragment, useCallback, useEffect, useState } from "react"
 import add from '../img/add.png'
 import { get, post } from '../func/request'
 
@@ -10,6 +10,10 @@ function TermExtract(params) {
     const [articalData, setArticalData] = useState()
     const [articleNames, setArticleNames] = useState()
     const [isSearching, setIsSearching] = useState(false)
+    const [termName, setTermName] = useState()
+    const [termData, setTermData] = useState()
+    const [isTermSearching, setIsTermSearching] = useState(false)
+
     const navigate = useNavigate();
 
     const location = useLocation();
@@ -40,6 +44,16 @@ function TermExtract(params) {
             }
     }
 
+    const handleClick = name => {
+        if (isTermSearching) return
+        setTermName(name)
+        setIsTermSearching(true)
+        get(`term/search?name=${name}`, res => {
+            setTermData(res.data)
+            setIsTermSearching(false)
+        })
+    }
+
     function ArticalShow(params) {
         const [textType, setTextType] = useState("TEXT")
 
@@ -52,13 +66,20 @@ function TermExtract(params) {
                     if (keywords.includes(part)) {
                         // 如果 part 在匹配数组中，则将它包裹在可点击的 span 元素中
                         return (
-                            <span key={index} className="artical-content-w" style={{ color: 'red' }}>
+                            <span
+                                key={index}
+                                className="artical-content-w"
+                                style={{ color: 'red' }}
+                                onClick={() => handleClick(part)}>
                                 {part}
                             </span>
                         );
                     } else if (terms.includes(part)) {
                         return (
-                            <span key={index} className="artical-content-w">
+                            <span
+                                key={index}
+                                className="artical-content-w"
+                                onClick={() => handleClick(part)}>
                                 {part}
                             </span>
                         );
@@ -186,6 +207,23 @@ function TermExtract(params) {
             </>
         )
     }
+
+    const termDetail = name => {
+        if (!termData || termData.infos[0].name !== name) return (<></>)
+        return (
+            <>
+                <p className="article-term-d">
+                    {termData.infos[0].definition}
+                    <NavLink
+                        className="article-term-more"
+                        target="_blank"
+                        to={`/term?fieldId=${termData.subfield.id}&id=${termData.id}&name=${termData.infos[0].name}`}>
+                        更多内容
+                    </NavLink>
+                </p >
+            </>
+        )
+    }
     return (
         <div className='view'>
             <div className='App-header search-header'>
@@ -228,12 +266,28 @@ function TermExtract(params) {
                         <div className="item-content">
                             {
                                 articalData?.keywords.map((val, i) => (
-                                    <NavLink key={`keyword_${i}`} className="item-link-word" style={{ color: 'red' }}>
-                                        {val}
-                                    </NavLink>
+                                    <Fragment key={`keyword_${i}`}>
+                                        <NavLink
+                                            key={`keyword_${i}`}
+                                            className="item-link-word"
+                                            style={{ color: 'red' }}
+                                            onClick={() => handleClick(val)}>
+                                            {val}
+                                        </NavLink>
+                                        <div>
+                                            {
+                                                !termData || termName !== val ? (<></>) :
+                                                    isTermSearching ? (
+                                                        <p className="article-term-d">
+                                                            读取中...
+                                                        </p>
+                                                    ) : termDetail(val)
+                                            }
+                                        </div>
+                                    </Fragment>
                                 ))
                             }
-                        </div>
+                        </div >
                     </div>
                     <div className="right-item">
                         <div className="item-head">
@@ -245,9 +299,24 @@ function TermExtract(params) {
                         <div className="item-content">
                             {
                                 articalData?.terms.map((val, i) => (
-                                    <NavLink key={`term_` + i} className="item-link-word">
-                                        {val}
-                                    </NavLink>
+                                    <Fragment key={`term_${i}`}>
+                                        <NavLink
+                                            key={`term_` + i}
+                                            className="item-link-word"
+                                            onClick={() => handleClick(val)}>
+                                            {val}
+                                        </NavLink>
+                                        <div>
+                                            {
+                                                !termData || termName !== val ? (<></>) :
+                                                    isTermSearching ? (
+                                                        <p className="article-term-d">
+                                                            读取中...
+                                                        </p>
+                                                    ) : termDetail(val)
+                                            }
+                                        </div>
+                                    </Fragment>
                                 ))
                             }
                         </div>

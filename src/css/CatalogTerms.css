@@ -89,3 +89,12 @@
     width: calc(100%-24px);
     font-size: 14px;
 }
+
+.field-terms-view {
+    display: flex;
+    justify-content: center;
+}
+
+.field-terms-box {
+    width: 660px;
+}

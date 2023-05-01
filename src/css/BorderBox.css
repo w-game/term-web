@@ -1,6 +1,6 @@
 .border-box {
     color: black;
-    width: 660px;
+    width: calc(100% - 64px);
     margin-inline: auto;
     margin-bottom: 16px;
     border: 1px solid #ddd;
@@ -12,8 +12,8 @@
     margin-top: 16px;
 }
 
-@media screen and (max-width: 660px) {
+/* @media screen and (max-width: 660px) {
     .border-box {
         width: calc(90% - 64px);
     }
-}
+} */

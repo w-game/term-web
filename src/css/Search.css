@@ -206,6 +206,43 @@
 }
 
 .term-similar-item {
-    margin-right: 32px;
+    width: calc((100% - 16px) / 2);
+    margin-right: 16px;
     cursor: pointer;
+    margin-bottom: 12px;
+}
+
+.term-similar-item:nth-child(2n) {
+    margin-right: 0;
+}
+
+.searh-view {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.main-box {
+    width: 660px;
+    margin-right: 8px;
+}
+
+.additional-box {
+    width: 320px;
+}
+
+@media screen and (max-width: 980px) {
+    .searh-view {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .main-box {
+        width: calc(100% - 64px);
+        margin-right: 0;
+    }
+
+    .additional-box {
+        width: calc(100% - 64px);
+    }
 }

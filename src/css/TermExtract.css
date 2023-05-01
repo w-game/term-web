@@ -11,6 +11,8 @@
     border-right: 1px solid #ececf1;
     padding-block: 34px;
     padding-inline: 24px;
+    display: flex;
+    flex-direction: column;
 }
 
 .article-list {
@@ -33,6 +35,31 @@
     border-radius: 4px;
     background-color: #00b894;
     font-size: bold;
+}
+
+.artical-term {
+    width: calc(100% - 16px);
+    max-height: 256px;
+    margin-top: auto;
+    margin-bottom: 64px;
+    background-color: #ececf1;
+    border-radius: 12px;
+    padding: 8px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.article-term-d {
+    padding: 8px;
+    background-color:whitesmoke;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.article-term-more {
+    color: #00b894;
+    text-decoration: underline;
 }
 
 .middle {
