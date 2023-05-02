@@ -10,7 +10,7 @@ function TermExtract(params) {
     const [articalData, setArticalData] = useState()
     const [articleNames, setArticleNames] = useState()
     const [isSearching, setIsSearching] = useState(false)
-    const [termName, setTermName] = useState()
+    const [selectedTerm, setSelectedTerm] = useState()
     const [termData, setTermData] = useState()
     const [isTermSearching, setIsTermSearching] = useState(false)
 
@@ -31,7 +31,6 @@ function TermExtract(params) {
         case "/extract":
             const id = queryParams.get('id');
             if (id != null && (articalData == null || parseInt(articalData.id) !== parseInt(id))) {
-                console.log(id, articalData?.id)
                 get(`article?id=${id}`, res => {
                     setMiddleStatus("SHOW")
                     setArticalData(res.data)
@@ -46,13 +45,24 @@ function TermExtract(params) {
 
     const handleClick = name => {
         if (isTermSearching) return
-        setTermName(name)
+
+        setSelectedTerm(name)
+    }
+
+    useEffect(() => {
+        if (selectedTerm == null) return
+        console.log(selectedTerm)
         setIsTermSearching(true)
-        get(`term/search?name=${name}`, res => {
-            setTermData(res.data)
+
+        get(`term/search?name=${selectedTerm}`, res => {
+            if (res.data.code !== 200) {
+                setIsTermSearching(false)
+                return
+            }
+            setTermData(res.data.data)
             setIsTermSearching(false)
         })
-    }
+    }, [selectedTerm])
 
     function ArticalShow(params) {
         const [textType, setTextType] = useState("TEXT")
@@ -155,8 +165,6 @@ function TermExtract(params) {
                 "title": articalTitle,
                 "content": articalContent
             }, res => {
-                // setArticalData(data)
-                // setMiddleStatus("SHOW")
                 navigate(`/extract?id=${res.data.id}`);
                 setIsSearching(false)
             })
@@ -209,20 +217,35 @@ function TermExtract(params) {
     }
 
     const termDetail = name => {
-        if (!termData || termData.infos[0].name !== name) return (<></>)
         return (
             <>
                 <p className="article-term-d">
-                    {termData.infos[0].definition}
+                    {termData?.infos[0].definition}
                     <NavLink
                         className="article-term-more"
                         target="_blank"
-                        to={`/term?fieldId=${termData.subfield.id}&id=${termData.id}&name=${termData.infos[0].name}`}>
+                        to={`/term?fieldId=${termData?.subfield.id}&id=${termData?.id}&name=${termData?.infos[0].name}`}>
                         更多内容
                     </NavLink>
                 </p >
             </>
         )
+    }
+
+    const checkRenderTermDetail = name => {
+        if (selectedTerm !== name) {
+            return (<></>)
+        }
+
+        if (isTermSearching) {
+            return (
+                <p className="article-term-d">
+                    读取中...
+                </p>
+            )
+        } else {
+            return termDetail(name)
+        }
     }
     return (
         <div className='view'>
@@ -276,12 +299,7 @@ function TermExtract(params) {
                                         </NavLink>
                                         <div>
                                             {
-                                                !termData || termName !== val ? (<></>) :
-                                                    isTermSearching ? (
-                                                        <p className="article-term-d">
-                                                            读取中...
-                                                        </p>
-                                                    ) : termDetail(val)
+                                                checkRenderTermDetail(val)
                                             }
                                         </div>
                                     </Fragment>
@@ -308,12 +326,7 @@ function TermExtract(params) {
                                         </NavLink>
                                         <div>
                                             {
-                                                !termData || termName !== val ? (<></>) :
-                                                    isTermSearching ? (
-                                                        <p className="article-term-d">
-                                                            读取中...
-                                                        </p>
-                                                    ) : termDetail(val)
+                                                checkRenderTermDetail(val)
                                             }
                                         </div>
                                     </Fragment>

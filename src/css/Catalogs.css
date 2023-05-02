@@ -38,11 +38,13 @@
     margin-right: 0;
 }
 
-.field-view {
-    display: flex;
-    justify-content: center;
-}
-
 .field-box {
     width: 660px;
+}
+
+@media screen and (max-width: 660px) {
+    .field-box {
+        width: calc(100% - 64px);
+        margin-right: 0;
+    }
 }

@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { get } from '../func/request'
 import search_png from '../img/search.png';
 import { throttle } from 'lodash';
+import BorderView from './BorderView'
 
 function CatalogTerms(params) {
     const [field, setField] = useState()
@@ -40,10 +41,7 @@ function CatalogTerms(params) {
     const throttledGet = throttle(get, 2000);
 
     return (
-        <div className='view field-terms-view'>
-            <div className='App-header search-header'>
-                <TopELement />
-            </div>
+        <BorderView>
             <div className='field-terms-box'>
                 <BorderBox>
                     <BorderRouter r1='领域 / 学科 / 行业' r2={fieldName} r1_link='/field' />
@@ -159,8 +157,7 @@ function CatalogTerms(params) {
                     </table>
                 </BorderBox>
             </div>
-
-        </div >
+        </BorderView>
     )
 }
 

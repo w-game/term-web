@@ -5,15 +5,13 @@ import '../css/Catalogs.css'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { get } from '../func/request'
+import BorderView from './BorderView';
 
 
 function Calalogs(params) {
     const [fields, setFields] = useState(null)
 
     const navigate = useNavigate();
-
-    // const location = useLocation()
-    // const queryParams = new URLSearchParams(location.search)
 
     if (fields == null) {
         get("fields", res => {
@@ -23,11 +21,7 @@ function Calalogs(params) {
     }
 
     return (
-        <div className='view field-view'>
-            <div className='App-header search-header'>
-                <TopELement />
-            </div>
-
+        <BorderView>
             <div className='field-box'>
                 <BorderBox>
                     <BorderRouter r1='领域 / 学科 / 行业' />
@@ -57,7 +51,7 @@ function Calalogs(params) {
                     </div>
                 </BorderBox>
             </div>
-        </div >
+        </BorderView>
     )
 }
 
