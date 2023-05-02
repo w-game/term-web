@@ -3,7 +3,7 @@ import '../css/Search.css'
 import BorderBox from '../element/BorderBox';
 import BorderRouter from '../element/BorderRouter';
 import { useState, useEffect } from 'react';
-import { get } from '../func/request'
+import { get, stream } from '../func/request'
 import BorderView from '../view/BorderView'
 
 
@@ -15,43 +15,34 @@ export function Search() {
     const fieldId = queryParams.get('fieldId');
 
     const fetchTermDefinition = termId => {
-        fetch(`http://localhost:8000/api/term/ai?id=${termId}`)
-            .then(response => {
-                const reader = response.body.getReader();
+        stream(`term/ai?id=${termId}`, res => {
+            const reader = res.body.getReader();
 
-                function processStream({ done, value }) {
-                    if (done) {
-                        console.log('数据流处理完成');
-                        return;
-                    }
-                    const decoder = new TextDecoder('utf-8');
-                    const text = decoder.decode(value);
-
-                    // setTermData(p => {
-                    //     var t = p
-                    //     console.log(t)
-                    //     p.infos[0].definition += text
-                    //     return t
-                    // })
-
-                    setTermData(prevData => {
-                        return {
-                            ...prevData,
-                            infos: [
-                                {
-                                    ...prevData.infos[0],
-                                    definition: prevData.infos[0].definition + text
-                                }
-                            ]
-                        };
-                    });
-
-                    reader.read().then(processStream);
+            function processStream({ done, value }) {
+                if (done) {
+                    console.log('数据流处理完成');
+                    return;
                 }
+                const decoder = new TextDecoder('utf-8');
+                const text = decoder.decode(value);
+
+                setTermData(prevData => {
+                    return {
+                        ...prevData,
+                        infos: [
+                            {
+                                ...prevData.infos[0],
+                                definition: prevData.infos[0].definition + text
+                            }
+                        ]
+                    };
+                });
 
                 reader.read().then(processStream);
-            })
-            .catch(error => console.error(error));
+            }
+
+            reader.read().then(processStream);
+        })
     }
 
     useEffect(() => {
@@ -61,13 +52,11 @@ export function Search() {
                 if (termData == null || termData.id !== parseInt(id)) {
                     get(`term?id=${id}`, res => {
                         setTermData(res.data)
-                        console.log(res.data)
                     })
                 }
                 break;
             case "/term/ai":
                 get(`subfield/check?id=${fieldId}&name=${termName}`, res => {
-                    console.log(res.data)
                     setTermData(res.data)
                     const definition = res.data.infos[0].definition
                     if (definition == null || definition == '') {

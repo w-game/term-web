@@ -1,17 +1,14 @@
 import axios from "axios"
-import appConfig from '../config/app'
 import Cookies from 'js-cookie';
+import config from '../func/config'
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 const csrftoken = Cookies.get('csrftoken')
 axios.defaults.headers.common['X-CSRFToken'] = csrftoken;
 
-var url = appConfig.serverAddress
-url = "http://localhost:8000/"
-
 const get = (router, callback, error) => {
-    axios.get(`${url}api/${router}`)
+    axios.get(`${config.api}api/${router}`)
         .then(res => {
             if (callback) {
                 callback(res)
@@ -25,7 +22,7 @@ const get = (router, callback, error) => {
 }
 
 const post = (router, data, callback, error) => {
-    axios.post(`${url}api/${router}`, data, {
+    axios.post(`${config.api}api/${router}`, data, {
         headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken
@@ -43,4 +40,18 @@ const post = (router, data, callback, error) => {
         })
 }
 
-export { get, post }
+const stream = (router, callback, error) => {
+    fetch(`${config.api}api/${router}`)
+        .then(res => {
+            if (callback) {
+                callback(res)
+            }
+        })
+        .catch(e => {
+            if (error) {
+                error(e)
+            }
+        });
+}
+
+export { get, post, stream }
