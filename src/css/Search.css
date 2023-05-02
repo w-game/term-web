@@ -109,15 +109,12 @@
 }
 
 .des-label {
-    flex-shrink: 0;
     height: 26px;
-    margin-bottom: 8px;
     background-color: white;
-    position: absolute;
-    text-indent: 0;
-    padding-inline: 8px;
+    padding: 4px 12px;
     border-radius: 4px;
     font-weight: bold;
+    margin-right: 8px;
 }
 
 .term-info-item {
@@ -128,13 +125,11 @@
     background-color: antiquewhite;
     padding: 8px;
     border-radius: 4px;
-    text-indent: 3.5em;
     margin-block: 16px;
-    position: relative;
 }
 
 .term-info-get {
-    
+
 }
 
 .Search-content-dict-add-language {

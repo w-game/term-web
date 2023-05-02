@@ -67,6 +67,8 @@ export function Search() {
         }
     }, [])
 
+    useEffect(() => console.log(termData?.subfield.id), [termData])
+
     function CalcLanguage(l) {
         switch (l) {
             case "en":
@@ -81,9 +83,11 @@ export function Search() {
 
     function CalcTime(isoDate) {
         const date = isoDate ? new Date(isoDate) : new Date();
-        const hour = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
-        const minute = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
-        const formattedDate = `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()} ${hour}:${minute}`;
+        // const hour = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
+        // const minute = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+        const month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
+        const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()
+        const formattedDate = `${date.getFullYear()}.${month}.${day}`;
         return formattedDate
     }
 
@@ -91,7 +95,7 @@ export function Search() {
         <BorderView>
             <div className='main-box'>
                 <BorderBox>
-                    <BorderRouter r1={termData?.subfield.name} r2={termData?.infos[0].name} r1_link={`/terms?id=${fieldId}&field=${termData?.subfield.name}`} />
+                    <BorderRouter r1={termData?.subfield.name} r2={termData?.infos[0].name} r1_link={`/terms?id=${termData?.subfield.id}&field=${termData?.subfield.name}`} />
                     <h1 className='Search-content-dict-title'>
                         {termData ? termData.name : '未找到相关术语'}
                     </h1>
@@ -110,19 +114,77 @@ export function Search() {
                                                 </p>
                                             </div>
                                             <div className='term-info-item'>
-                                                <p className='des-label'>定义</p>
+                                                <span className='des-label'>定义</span>
                                                 {val.definition}
                                             </div>
                                             <div className='term-info-item'>
-                                                <p className='des-label'>历史</p>
+                                                <span className='des-label'>历史</span>
                                                 {
-                                                    val.history ? (val.history) : (<NavLink className='term-info-get'><p>点击查询</p></NavLink>)
+                                                    val.history ? (val.history) : (<NavLink className='term-info-get' onClick={() => {
+                                                        stream(`term/history/ai?id=${termData.id}`, res => {
+                                                            const reader = res.body.getReader();
+
+                                                            function processStream({ done, value }) {
+                                                                if (done) {
+                                                                    console.log('数据流处理完成');
+                                                                    return;
+                                                                }
+                                                                const decoder = new TextDecoder('utf-8');
+                                                                const text = decoder.decode(value);
+
+                                                                setTermData(prevData => {
+                                                                    return {
+                                                                        ...prevData,
+                                                                        infos: [
+                                                                            {
+                                                                                ...prevData.infos[0],
+                                                                                history: prevData.infos[0].history + text
+                                                                            }
+                                                                        ]
+                                                                    };
+                                                                });
+
+                                                                reader.read().then(processStream);
+                                                            }
+
+                                                            reader.read().then(processStream);
+                                                        })
+                                                    }}><span>点击查询</span></NavLink>)
                                                 }
                                             </div>
                                             <div className='term-info-item'>
-                                                <p className='des-label'>应用</p>
+                                                <span className='des-label'>应用</span>
                                                 {
-                                                    val.application ? (val.application) : (<NavLink className='term-info-get'><p>点击查询</p></NavLink>)
+                                                    val.application ? (val.application) : (<NavLink className='term-info-get' onClick={() => {
+                                                        stream(`term/application/ai?id=${termData.id}`, res => {
+                                                            const reader = res.body.getReader();
+
+                                                            function processStream({ done, value }) {
+                                                                if (done) {
+                                                                    console.log('数据流处理完成');
+                                                                    return;
+                                                                }
+                                                                const decoder = new TextDecoder('utf-8');
+                                                                const text = decoder.decode(value);
+
+                                                                setTermData(prevData => {
+                                                                    return {
+                                                                        ...prevData,
+                                                                        infos: [
+                                                                            {
+                                                                                ...prevData.infos[0],
+                                                                                application: prevData.infos[0].application + text
+                                                                            }
+                                                                        ]
+                                                                    };
+                                                                });
+
+                                                                reader.read().then(processStream);
+                                                            }
+
+                                                            reader.read().then(processStream);
+                                                        })
+                                                    }}><span>点击查询</span></NavLink>)
                                                 }
                                             </div>
                                         </li>
@@ -165,19 +227,20 @@ export function Search() {
                 <BorderBox>
                     <div className='border-box-title'>
                         <div className='term-similar'>
-                            <h3>近似术语</h3>
+                            <h3>相关术语</h3>
                         </div>
                     </div>
                     <div className='term-similar-content'>
                         {
-                            termData?.related_terms.map((val, i) => (
-                                <NavLink
-                                    key={`related_term_${i}`}
-                                    className='term-similar-item'
-                                    to={`/term?name=${'后端'}`}>
-                                    {val}
-                                </NavLink>
-                            ))
+                            termData?.related_terms.length > 0 ?
+                                termData?.related_terms.map((val, i) => (
+                                    <NavLink
+                                        key={`related_term_${i}`}
+                                        className='term-similar-item'
+                                        to={`/term/ai?fieldId=${termData.subfield.id}&name=${val}`} target="_blank">
+                                        {val}
+                                    </NavLink>
+                                )) : (<NavLink>点击搜索相关术语</NavLink>)
                         }
                     </div>
                 </BorderBox>
