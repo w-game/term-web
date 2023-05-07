@@ -9,6 +9,7 @@ import Field from './view/Field';
 import FieldTerms from './view/FieldTerms';
 import Admin from './view/Admin';
 import TermExtract from './view/TermExtract';
+import Login from './view/Login';
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: "/extract/add",
     element: <TermExtract />
+  },
+  {
+    path: "/login",
+    element: <Login />
   }
 ])
 

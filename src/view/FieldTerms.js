@@ -3,7 +3,7 @@ import '../css/CatalogTerms.css'
 import TopELement from '../element/TopElement'
 import BorderBox from '../element/BorderBox'
 import BorderRouter from '../element/BorderRouter'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { get } from '../func/request'
 import search_png from '../img/search.png';
 import { throttle } from 'lodash';
@@ -15,6 +15,11 @@ function CatalogTerms(params) {
     const [curPage, setCurPage] = useState(1)
     const [termCount, setTermCount] = useState(1)
     const [searchTerm, setSearchTerm] = useState("")
+    const isComposing = useRef(false);
+
+    // 定时器
+    const timeoutId = useRef(null)
+
 
     const pages = [-2, -1, 0, 1, 2]
 
@@ -38,7 +43,17 @@ function CatalogTerms(params) {
         })
     }
 
-    const throttledGet = throttle(get, 2000);
+    const handleSearch = name => {
+        clearTimeout(timeoutId.current);
+        if (!isComposing.current && name !== null && name !== '') {
+            const id = setTimeout(() => {
+                get(`subfield/term/search?id=${field.id}&name=${name}`, res => {
+                    setFieldSearch(res.data.data)
+                })
+            }, 800);
+            timeoutId.current = id
+        }
+    }
 
     return (
         <BorderView>
@@ -66,11 +81,18 @@ function CatalogTerms(params) {
                                                 setSearchTerm(name)
                                                 if (name == null || name == '') {
                                                     setFieldSearch(null)
+                                                    clearTimeout(timeoutId.current)
                                                 } else {
-                                                    throttledGet(`subfield/term/search?id=${field.id}&name=${name}`, res => {
-                                                        setFieldSearch(res.data)
-                                                    })
+                                                    handleSearch(name)
                                                 }
+                                            }}
+                                            onCompositionStart={() => {
+                                                isComposing.current = true
+                                                clearInterval(timeoutId);
+                                            }}
+                                            onCompositionEnd={event => {
+                                                isComposing.current = false
+                                                handleSearch(event.target.value)
                                             }}
                                         />
                                         <img className='Search-btn-img' src={search_png} />

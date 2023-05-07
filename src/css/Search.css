@@ -91,15 +91,25 @@
 }
 
 .Search-content-dict-item-language-type {
-    display: inline-block;
+    width: 16px;
+    height: 16px;
+    display: flex;
     font-size: 14px;
     padding-inline: 4px;
-    padding-block: 2px;
+    padding-block: 4px;
     border-radius: 4px;
     background-color: orange;
     margin-right: 8px;
     color: white;
     font-weight: bold;
+    justify-content: center;
+    align-items: center;
+}
+
+.term-op-btn {
+    margin-right: 16px;
+    fill: red;
+    stroke: blue;
 }
 
 .Search-content-dict-item-name {
@@ -132,7 +142,7 @@
 
 }
 
-.Search-content-dict-add-language {
+/* .Search-content-dict-add-language {
     height: calc(100% - 16px);
     background-color: green;
     color: white;
@@ -145,6 +155,10 @@
     align-items: center;
     justify-content: center;
     display: flex;
+} */
+
+.add-language {
+
 }
 
 .search-content-dict-info {
@@ -170,6 +184,8 @@
 .search-content-dict-info-content-more {
     width: calc(80% - 32px);
     height: 100%;
+    align-items: center;
+    display: flex;
 }
 
 .search-content-dict-info-content-author {
